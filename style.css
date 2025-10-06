@@ -1,0 +1,196 @@
+/* File: style.css */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fcb69f 100%);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
+
+.container {
+  z-index: 2;
+  max-width: 700px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(2.5rem, 7vw, 4rem);
+  color: #fffbea;
+  text-shadow: 0 0 20px rgba(255, 195, 160, 0.8);
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  color: #fffdf6;
+  margin-top: 10px;
+  font-weight: 400;
+}
+
+#ageDisplay {
+  margin-top: 15px;
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  color: #fff7d1;
+  text-shadow: 1px 1px 10px rgba(255, 233, 190, 0.5);
+  font-weight: 500;
+}
+
+button {
+  margin-top: 25px;
+  padding: 14px 30px;
+  background: linear-gradient(90deg, #ff758c, #ff7eb3);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 120, 170, 0.4);
+  transition: all 0.25s ease;
+}
+
+button:hover {
+  transform: scale(1.08);
+  background: linear-gradient(90deg, #ff7eb3, #ff758c);
+  box-shadow: 0 6px 25px rgba(255, 100, 150, 0.6);
+}
+
+#surprise {
+  margin-top: 30px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.6s ease;
+  padding: 1rem;
+  color: #fffaf3;
+}
+
+#surprise.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#surprise h2 {
+  font-family: "Great Vibes", cursive;
+  font-size: 2.2rem;
+  color: #fff6c4;
+  text-shadow: 0 0 12px rgba(255, 255, 150, 0.7);
+}
+
+#surprise p {
+  font-size: 1.1rem;
+  color: #fffdf6;
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* 🎈 Balloons */
+.balloon {
+  position: absolute;
+  bottom: -150px;
+  width: 80px;
+  height: 100px;
+  background: radial-gradient(circle at 50% 35%, #fff 10%, var(--clr, #ff6b81) 80%);
+  border-radius: 50% 50% 45% 45%;
+  animation: float 6s ease-in-out infinite;
+  left: calc(20% * var(--i));
+  animation-delay: calc(var(--i) * -1s);
+  opacity: 0.9;
+}
+
+.balloon::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 50px;
+  background: #fff;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.balloon:nth-child(2) { --clr: #f9ca24; }
+.balloon:nth-child(3) { --clr: #e056fd; }
+.balloon:nth-child(4) { --clr: #22a6b3; }
+.balloon:nth-child(5) { --clr: #badc58; }
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(0); opacity: 0.8; }
+  50% { transform: translateY(-300px) rotate(10deg); opacity: 1; }
+  100% { transform: translateY(-700px) rotate(-10deg); opacity: 0; }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 🎉 Confetti */
+.confetti {
+  position: fixed;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  opacity: 0.8;
+  animation: fall linear forwards;
+  border-radius: 2px;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* 📱 Responsive design */
+@media (max-width: 768px) {
+  body {
+    padding: 2rem 1rem;
+  }
+  .container {
+    padding: 1.5rem;
+  }
+  .balloon {
+    width: 60px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  p, #ageDisplay {
+    font-size: 1rem;
+  }
+  button {
+    padding: 10px 20px;
+  }
+}

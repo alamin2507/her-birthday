@@ -1,0 +1,91 @@
+<!-- File: index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday!</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <audio id="music" src="birthday_song.mp3" preload="auto"></audio>
+
+  <div class="container">
+    <h1>🎉 Happy Birthday, Sarah! 🎂</h1>
+    <p>Wishing you joy, laughter, and all your favorite things today 💖</p>
+
+    <div id="ageDisplay">🎂 You are <span id="ageText"></span> old today!</div>
+
+    <button id="surpriseBtn">🎁 Open Your Surprise</button>
+
+    <div id="surprise" class="hidden">
+      <h2>💌 You are amazing, Sarah!</h2>
+      <p>Every moment with you is a celebration. May your day be filled with love and light! 💕</p>
+    </div>
+  </div>
+
+  <!-- Balloons -->
+  <div class="balloon" style="--i:1"></div>
+  <div class="balloon" style="--i:2"></div>
+  <div class="balloon" style="--i:3"></div>
+  <div class="balloon" style="--i:4"></div>
+  <div class="balloon" style="--i:5"></div>
+
+  <script>
+    const btn = document.getElementById("surpriseBtn");
+    const surprise = document.getElementById("surprise");
+    const music = document.getElementById("music");
+
+    // 🎂 Calculate age
+    function calculateAge(birthDate) {
+      const now = new Date();
+      let years = now.getFullYear() - birthDate.getFullYear();
+      let months = now.getMonth() - birthDate.getMonth();
+      let days = now.getDate() - birthDate.getDate();
+
+      if (days < 0) {
+        months--;
+        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += prevMonth.getDate();
+      }
+
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      return { years, months, days };
+    }
+
+    function updateAge() {
+      const birthDate = new Date(2004, 9, 8); // Oct 8, 2004 (month is 0-indexed)
+      const { years, months, days } = calculateAge(birthDate);
+      document.getElementById("ageText").textContent = 
+        `${years} years, ${months} months, and ${days} days`;
+    }
+
+    updateAge();
+    setInterval(updateAge, 86400000); // refresh daily
+
+    // 🎁 Surprise logic
+    btn.addEventListener("click", () => {
+      surprise.classList.toggle("hidden");
+      surprise.classList.toggle("show");
+      createConfetti();
+      music.play().catch(() => console.log("Autoplay blocked"));
+    });
+
+    function createConfetti() {
+      for (let i = 0; i < 80; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 4000);
+      }
+    }
+  </script>
+</body>
+</html>
